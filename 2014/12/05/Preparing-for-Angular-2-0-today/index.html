@@ -8,10 +8,10 @@
   <meta name="description" content="Angular 2.0 will replace a number of features in Angular 1.3 (angular.module, .controller, jqLite, etc.) with features available natively in ECMAScript 6. Additionally, patterns that are now considere">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Preparing for Angular 2.0 today">
-<meta property="og:url" content="http://brettandrews.info/2015/09/02/Preparing-for-Angular-2-0-today/index.html">
+<meta property="og:url" content="http://brettandrews.info/2014/12/05/Preparing-for-Angular-2-0-today/index.html">
 <meta property="og:site_name" content="Brett Andrews">
 <meta property="og:description" content="Angular 2.0 will replace a number of features in Angular 1.3 (angular.module, .controller, jqLite, etc.) with features available natively in ECMAScript 6. Additionally, patterns that are now considere">
-<meta property="og:updated_time" content="2015-09-03T04:44:36.000Z">
+<meta property="og:updated_time" content="2015-09-03T14:51:57.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Preparing for Angular 2.0 today">
 <meta name="twitter:description" content="Angular 2.0 will replace a number of features in Angular 1.3 (angular.module, .controller, jqLite, etc.) with features available natively in ECMAScript 6. Additionally, patterns that are now considere">
@@ -62,8 +62,8 @@
       <div class="outer">
         <section id="main"><article id="post-Preparing-for-Angular-2-0-today" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2015/09/02/Preparing-for-Angular-2-0-today/" class="article-date">
-  <time datetime="2015-09-03T04:44:27.000Z" itemprop="datePublished">2015-09-02</time>
+    <a href="/2014/12/05/Preparing-for-Angular-2-0-today/" class="article-date">
+  <time datetime="2014-12-06T05:44:27.000Z" itemprop="datePublished">2014-12-05</time>
 </a>
     
   </div>
@@ -83,28 +83,30 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>Angular 2.0 will replace a number of features in Angular 1.3 (angular.module, .controller, jqLite, etc.) with features available natively in ECMAScript 6. Additionally, patterns that are now considered bad design ($scope, ng-controller) will be replaced with new patterns. Given what we know, we can begin writing apps today in Angular 1.3 that will both ease the migration to Angular 2.0, and improve the maintainability of your app.</p>
-<p>###Use ECMAScript 6 and Traceur<br>ES6 is awesome, and you can use it today if you only need to support IE9+ (which I assume is the case if you plan on upgrading to Angular 2.0 which will only support evergreen browsers). Angular 2.0 will be written in ES6 and while it won’t be a requirement for you to write your apps in ES6, I can only imagine that it would make interacting with Angular 2.0 a whole lot easier.</p>
-<p>###Use Component-Based Architecture (a.k.a. use directives, not ng-controllers)<br><code>ng-controller</code> is one of the patterns being sent to the graveyard that freaked out a LOT of people. The answer to all your woes is a component-based approach using directives. Explaining the problems with ng-controller and the benefits of using directives instead is outside the scope of this article, so I will defer to this great post on <a href="http://teropa.info/blog/2014/10/24/how-ive-improved-my-angular-apps-by-banning-ng-controller.html" title="How I&#39;ve Improved My Angular Apps by Banning ng-controller" target="_blank" rel="external">Banning ng-controller</a>. See also Google’s own <a href="https://docs.google.com/document/d/1XXMvReO8-Awi1EZXAXS4PzDzdNvV6pGcuaF4Q9821Es/pub" title="Angular Best Practice for App Structure" target="_blank" rel="external">Angular Best Practice for App Structure</a>.</p>
-<p>###Reduce dependency on $scope<br>We know that <code>$scope</code> will no longer be with us in Angular 2.0, and luckily there is a lot we can do to reduce our dependency on it. There are two directive properties that allow us to do this: <code>controllerAs</code> and <code>bindToController</code>. <code>bindToController</code> binds a directive’s isolate scope to properties of the controller (on <code>this</code>) instead of it’s <code>$scope</code>. <code>controllerAs</code> adds a reference of the controller (<code>this</code>) to $scope, giving us access to the controller’s properties and methods in our views. Check the <a href="https://docs.angularjs.org/api/ng/service/$compile" title="AngularJS API Documentation: $compile" target="_blank" rel="external">Angular Documentation on $compile</a> for a more in-depth explanation of these two properties. Unfortunately we still need <code>$scope</code> for it’s event system (<code>$on</code>, <code>$broadcast</code>, <code>$emit</code>) and listener (<code>$watch</code>). <a href="https://github.com/angular/zone.js/" title="angular/zone.js Github" target="_blank" rel="external">zone.js</a> and <a href="https://github.com/angular/watchtower.js/" title="watchtower.js Github Repository" target="_blank" rel="external">watchtower.js</a> are apparently the answer to these, but as of writing there hasn’t been any activity since July.</p>
-<p>###Be modular<br>With the adoption of the ES6 module system it appears that Angular 2.0 will be a push towards modularity as opposed to the status quo of jamming everything into a single <code>angular.module</code>. Modularity ties in nicely with a component-based architecture  in that your modules become collections of your components (and then some). To prepare for the transition from <code>angular.module</code>s to ES6 modules (and modularity in general) there are a few steps we can take:</p>
+<h3 id="Use_ECMAScript_6_and_Traceur">Use ECMAScript 6 and Traceur</h3><p>ES6 is awesome, and you can use it today if you only need to support IE9+ (which I assume is the case if you plan on upgrading to Angular 2.0 which will only support evergreen browsers). Angular 2.0 will be written in ES6 and while it won’t be a requirement for you to write your apps in ES6, I can only imagine that it would make interacting with Angular 2.0 a whole lot easier.</p>
+<h3 id="Use_Component-Based_Architecture_(a-k-a-_use_directives,_not_ng-controllers)">Use Component-Based Architecture (a.k.a. use directives, not ng-controllers)</h3><p><code>ng-controller</code> is one of the patterns being sent to the graveyard that freaked out a LOT of people. The answer to all your woes is a component-based approach using directives. Explaining the problems with ng-controller and the benefits of using directives instead is outside the scope of this article, so I will defer to this great post on <a href="http://teropa.info/blog/2014/10/24/how-ive-improved-my-angular-apps-by-banning-ng-controller.html" title="How I&#39;ve Improved My Angular Apps by Banning ng-controller" target="_blank" rel="external">Banning ng-controller</a>. See also Google’s own <a href="https://docs.google.com/document/d/1XXMvReO8-Awi1EZXAXS4PzDzdNvV6pGcuaF4Q9821Es/pub" title="Angular Best Practice for App Structure" target="_blank" rel="external">Angular Best Practice for App Structure</a>.</p>
+<h3 id="Reduce_dependency_on_$scope">Reduce dependency on $scope</h3><p>We know that <code>$scope</code> will no longer be with us in Angular 2.0, and luckily there is a lot we can do to reduce our dependency on it. There are two directive properties that allow us to do this: <code>controllerAs</code> and <code>bindToController</code>. <code>bindToController</code> binds a directive’s isolate scope to properties of the controller (on <code>this</code>) instead of it’s <code>$scope</code>. <code>controllerAs</code> adds a reference of the controller (<code>this</code>) to $scope, giving us access to the controller’s properties and methods in our views. Check the <a href="https://docs.angularjs.org/api/ng/service/$compile" title="AngularJS API Documentation: $compile" target="_blank" rel="external">Angular Documentation on $compile</a> for a more in-depth explanation of these two properties. Unfortunately we still need <code>$scope</code> for it’s event system (<code>$on</code>, <code>$broadcast</code>, <code>$emit</code>) and listener (<code>$watch</code>). <a href="https://github.com/angular/zone.js/" title="angular/zone.js Github" target="_blank" rel="external">zone.js</a> and <a href="https://github.com/angular/watchtower.js/" title="watchtower.js Github Repository" target="_blank" rel="external">watchtower.js</a> are apparently the answer to these, but as of writing there hasn’t been any activity since July.</p>
+<h3 id="Be_modular">Be modular</h3><p>With the adoption of the ES6 module system it appears that Angular 2.0 will be a push towards modularity as opposed to the status quo of jamming everything into a single <code>angular.module</code>. Modularity ties in nicely with a component-based architecture  in that your modules become collections of your components (and then some). To prepare for the transition from <code>angular.module</code>s to ES6 modules (and modularity in general) there are a few steps we can take:</p>
 <h4 id="1-_Use_more_angular-modules">1. Use more <code>angular.module</code>s</h4><p>This is a slight contradiction in our goal of transitioning away from <code>angular.module</code> as it means there will be more to convert when it comes time to upgrade, but it is a necessity if we want to be more modular. The following steps aim to minimise the task of converting <code>angular.module</code>s to ES6 modules.</p>
 <h4 id="2-_Define_services,_directives,_controllers,_filters,_etc-_in_separate_files">2. Define services, directives, controllers, filters, etc. in separate files</h4><p>Based on the examples of Angular 2.0 DI we’ve seen thusfar, you can simply <code>import</code> your dependencies and inject them with an annotation. The equivalent to this in Angular 1.3 is <code>import</code>ing and defining them on the <code>angular.module</code> so that they get registered in the dependency injector. By taking this approach, not only will you be prepared for Angular 2.0 DI, but your module files will become incredibly light-weight, and as a result be easier to convert to an ES6 module.</p>
 <h4 id="3-_Do_not_add_anything_to_angular-module_that_could_simply_be_imported">3. Do not add anything to angular.module that could simply be imported</h4><p>Instead of defining controllers on <code>angular.module</code> you can simply import them and reference them where needed, which is closer to what Angular 2.0 DI (without the annotation). But if you <em>really</em> want to get as close as possible to Angular 2.0 DI, then…</p>
 <h4 id="4-_Use_di-js">4. Use di.js</h4><p><a href="https://github.com/angular/di.js/" title="di.js Github Repository" target="_blank" rel="external">di.js</a> is the dependency injection library that will be used in Angular 2.0. Unfortunately, like <a href="https://github.com/angular/zone.js/" title="angular/zone.js Github" target="_blank" rel="external">zone.js</a> and <a href="https://github.com/angular/watchtower.js/" title="watchtower.js Github Repository" target="_blank" rel="external">watchtower.js</a> it’s a work in progress, but if you’re prepared to take the risk of API changes and willing to learn how it currently works with few examples and minimal documentation, the payoff could be huge.</p>
-<p>###Use AngularUI’s ui-router<br><a href="https://github.com/angular-ui/ui-router" title="angular-ui/ui-router Github Repository" target="_blank" rel="external">Angular UI’s ui-router</a> is brilliant and is likely to be closer to the Angular 2.0 router than the Angular 1.3 router will be, and therefore potentially easier to migrate. While there will no doubt still be a significant amount of work required to move from ui-router to the new router, it is possible that Angular UI will provide an update that makes it work effortlessly with the new router.</p>
-<p>###Don’t use angular.element<br>jqLite is gone, so just use jQuery. Or better yet, consider that <a href="http://youmightnotneedjquery.com/" title="You might not need jQuery" target="_blank" rel="external">you might not need jQuery</a>.</p>
+<h3 id="Use_AngularUI’s_ui-router">Use AngularUI’s ui-router</h3><p><a href="https://github.com/angular-ui/ui-router" title="angular-ui/ui-router Github Repository" target="_blank" rel="external">Angular UI’s ui-router</a> is brilliant and is likely to be closer to the Angular 2.0 router than the Angular 1.3 router will be, and therefore potentially easier to migrate. While there will no doubt still be a significant amount of work required to move from ui-router to the new router, it is possible that Angular UI will provide an update that makes it work effortlessly with the new router.</p>
+<h3 id="Don’t_use_angular-element">Don’t use angular.element</h3><p>jqLite is gone, so just use jQuery. Or better yet, consider that <a href="http://youmightnotneedjquery.com/" title="You might not need jQuery" target="_blank" rel="external">you might not need jQuery</a>.</p>
 <!--###Bringing it all together
 Now that we've covered what we can do to prepare for Angular 2.0 it's time to see it in action. Note that this example will use ES6 and if you want to follow along you will need to transpile the source with Traceur or something similar. I'll be basing this example on [Angular's ToDoMVC] [6] so that you can easily compare the differences. Keep in mind that a modular approach seems rather verbose on a small scale project like this. For the end result, see the [Preparing For Angular 2.0 ToDoMVC Github Repository] [7]-->
-<p>###Continue using the Directive Definition Object (DDO)<br>As with the new DI system, directives will also leverage annotations to reduce boilerplate. Unfortunately there isn’t much to go on here, so for now you’re stuck with the terminally ill DDO. It’s possible that the Angular team will make these annotations available to Angular 1.3 which would be a great first step in the official migration path, whatever that may be.</p>
-<p>###Conclusion<br>Migrating to Angular 2.0 will still be quite the task, but I strongly believe that by writing your Angular apps in this way you will ease the pain of migrating and have a better structured, more maintainable app.</p>
+<h3 id="Continue_using_the_Directive_Definition_Object_(DDO)">Continue using the Directive Definition Object (DDO)</h3><p>As with the new DI system, directives will also leverage annotations to reduce boilerplate. Unfortunately there isn’t much to go on here, so for now you’re stuck with the terminally ill DDO. It’s possible that the Angular team will make these annotations available to Angular 1.3 which would be a great first step in the official migration path, whatever that may be.</p>
+<h3 id="Conclusion">Conclusion</h3><p>Migrating to Angular 2.0 will still be quite the task, but I strongly believe that by writing your Angular apps in this way you will ease the pain of migrating and have a better structured, more maintainable app.</p>
 <p>If any of these points aren’t clear, please let me know in a comment and I’ll either add some example code or explain it further. Additionally, if you have any other methods you use in order to ease the migration pains, I’d love to hear about them!</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://brettandrews.info/2015/09/02/Preparing-for-Angular-2-0-today/" data-id="cie3qkpjr00015qah6u8fr2wj" class="article-share-link">Share</a>
+      <a data-url="http://brettandrews.info/2014/12/05/Preparing-for-Angular-2-0-today/" data-id="cie3qkpjr00015qah6u8fr2wj" class="article-share-link">Share</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/angular/">angular</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es6/">es6</a></li></ul>
+
     </footer>
   </div>
   
@@ -122,7 +124,7 @@ Now that we've covered what we can do to prepare for Angular 2.0 it's time to se
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular/">angular</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/es6/">es6</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -131,7 +133,7 @@ Now that we've covered what we can do to prepare for Angular 2.0 it's time to se
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      
+      <a href="/tags/angular/" style="font-size: 10px;">angular</a> <a href="/tags/es6/" style="font-size: 10px;">es6</a>
     </div>
   </div>
 
@@ -140,7 +142,7 @@ Now that we've covered what we can do to prepare for Angular 2.0 it's time to se
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -152,7 +154,7 @@ Now that we've covered what we can do to prepare for Angular 2.0 it's time to se
       <ul>
         
           <li>
-            <a href="/2015/09/02/Preparing-for-Angular-2-0-today/">Preparing for Angular 2.0 today</a>
+            <a href="/2014/12/05/Preparing-for-Angular-2-0-today/">Preparing for Angular 2.0 today</a>
           </li>
         
       </ul>
